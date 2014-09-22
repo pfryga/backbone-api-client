@@ -10,11 +10,11 @@
     </thead>
     <tbody>
         <% _.each(users, function(user) { %>
-        <tr>
-        <td><%= user.get('firstname') %></td>
-        <td><%= user.get('lastname') %></td>
-        <td><%= user.get('age') %></td>
-        </tr>
+            <tr>
+                <td><%= user.get('firstname') %></td>
+                <td><%= user.get('lastname') %></td>
+                <td><%= user.get('age') %></td>
+            </tr>
         <% }); %>
     </tbody>
 </table>

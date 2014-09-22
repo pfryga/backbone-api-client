@@ -29,14 +29,29 @@
             </thead>
             <tbody>
                 <% _.each(users, function(user) { %>
-                <tr>
-                <td><%= user.get('firstname') %></td>
-                <td><%= user.get('lastname') %></td>
-                <td><%= user.get('age') %></td>
-                </tr>
+                    <tr>
+                        <td><%= user.get('firstname') %></td>
+                        <td><%= user.get('lastname') %></td>
+                        <td><%= user.get('age') %></td>
+                    </tr>
                 <% }); %>
             </tbody>
         </table>
+    </script>
+    <script type="text/template" id="edit-user-template">
+        <form class="edit-user-form">
+            <legend>
+                Create User
+            </legend>
+            <label>First Name</label>
+            <input type="text" name="firstname" id="firstname" />
+            <label>Last Name</label>
+            <input type="text" name="lastname" id="lastname" />
+            <label>Age</label>
+            <input type="text" name="age" id="age" />
+            <hr>
+            <button type="submit" class="btn">Create</button>
+        </form>
     </script>
     <script src="client/js/scripts/main.js"></script>
 </body>
