@@ -16,6 +16,28 @@
     <script src="client/js/node_modules/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="client/js/node_modules/bower_components/underscore/underscore-min.js"></script>
     <script src="client/js/node_modules/bower_components/backbone/backbone.js"></script>
+    <script type="text/template" id="user-list-template">
+        <a href="#/new" class="btn btn-primary">New</a>
+        <hr />
+        <table class="table striped">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Age</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% _.each(users, function(user) { %>
+                <tr>
+                <td><%= user.get('firstname') %></td>
+                <td><%= user.get('lastname') %></td>
+                <td><%= user.get('age') %></td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </script>
     <script src="client/js/scripts/main.js"></script>
 </body>
 </html>

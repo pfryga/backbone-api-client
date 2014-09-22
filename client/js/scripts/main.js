@@ -12,9 +12,9 @@ var UserList = Backbone.View.extend({
         var that = this;
         var users = new Users();
         users.fetch({
-            success: function() {
-                // console.log('bangla');
-                that.$el.html('some example content');
+            success: function(users) {
+                var template = _.template($('#user-list-template').html());
+                that.$el.html(template({users: users.models}));
             }
         });
     }
