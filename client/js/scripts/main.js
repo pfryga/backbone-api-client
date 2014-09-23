@@ -42,22 +42,48 @@ var UserList = Backbone.View.extend({
 
 var EditUser = Backbone.View.extend({
     el: '.page',
-    render: function () {
-        var template = _.template($('#edit-user-template').html());
-        this.$el.html(template({}));
+    render: function (options) {
+        var that = this;
+        if (options.id) {
+            that.user = new User({
+                id: options.id
+            });
+            that.user.fetch({
+                success: function (user) {
+                    var template = _.template($('#edit-user-template').html());
+                    that.$el.html(template({
+                        user: user
+                    }));
+                }
+            });
+        } else {
+            var template = _.template($('#edit-user-template').html());
+            that.$el.html(template({
+                user: null
+            }));
+        }
     },
     events: {
-        'submit .edit-user-form': 'saveUser'
+        'submit .edit-user-form': 'saveUser',
+        'click .delete': 'deleteUser'
     },
     saveUser: function (ev) {
         var userDetails = $(ev.currentTarget).serializeObject();
         var user = new User();
         user.save(userDetails, {
             success: function (user) {
-                console.log('success: ' + user.toJSON());
+                router.navigate('', { trigger: true });
             }
         });
         console.log(userDetails);
+        return false;
+    },
+    deleteUser: function (ev) {
+        this.user.destroy({
+            success: function() {
+                router.navigate('', { trigger: true });
+            }
+        });
         return false;
     }
 });
@@ -65,7 +91,8 @@ var EditUser = Backbone.View.extend({
 var Router = Backbone.Router.extend({
     routes: {
         '': 'home',
-        'new': 'editUser'
+        'new': 'editUser',
+        'edit/:id': 'editUser'
     }
 });
 
@@ -76,8 +103,10 @@ var router = new Router();
 router.on('route:home', function() {
     userList.render();
 });
-router.on('route:editUser', function() {
-    editUser.render();
+router.on('route:editUser', function(id) {
+    editUser.render({
+        id: id
+    });
 });
 
 Backbone.history.start();
